@@ -1,6 +1,5 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
-import thunk from 'redux-thunk'
 import { userReducer } from 'store/user/reducer'
 import { todoReducer } from 'store/todo/reducer'
 
@@ -32,7 +31,7 @@ const reducer = (state, action) => {
 export type RootState = ReturnType<typeof rootReducer>
 
 const initStore = () => {
-  return createStore(reducer, bindMiddleware([thunk]))
+  return createStore(reducer, bindMiddleware([]))
 }
 
 export const wrapper = createWrapper<RootState>(initStore)

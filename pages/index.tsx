@@ -1,15 +1,10 @@
 import { NextPage } from 'next'
+import { signIn } from 'services/firebase'
 import Router from 'next/router'
 import { useEffect, useState, useMemo } from 'react'
-import { doSignIn } from 'store/thunks'
-import { useDispatch } from 'react-redux'
 
 const Index: NextPage = () => {
   const [initialMount, setInitialMount] = useState(false)
-  const dispatch = useDispatch()
-  const clickSignIn = () => {
-    dispatch(doSignIn())
-  }
   useEffect(() => {
     if (sessionStorage.getItem('pending')) {
       sessionStorage.removeItem('pending')
@@ -25,7 +20,7 @@ const Index: NextPage = () => {
     return (
       <div>
         <h1>firebase-todo</h1>
-        <button onClick={clickSignIn}>
+        <button onClick={signIn}>
           Googleアカウントでログイン
         </button>
       </div>
