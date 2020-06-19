@@ -1,5 +1,5 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
-import { fetchAuthSuccess, doSignOut } from 'store/actions'
+import { fetchAuthSuccess, signOutSuccess } from 'store/actions'
 
 type UserState = {
   displayName: string
@@ -22,6 +22,6 @@ export const userReducer = reducerWithInitialState(initialState)
   fetched: true,
   authed: !!(payload.displayName && payload.email),
 }))
-.case(doSignOut, (_) => ({
+.case(signOutSuccess, (_) => ({
   ...initialState,
 }))
