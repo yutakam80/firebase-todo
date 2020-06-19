@@ -18,4 +18,13 @@ if (typeof window !== 'undefined' && !firebase.apps.length) {
   if ('measurementId' in clientCredentials) firebase.analytics()
 }
 
+export const signIn = async () => {
+  sessionStorage.setItem('pending', '1')
+  firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+}
+
+export const signOut = async () => {
+  await firebase.auth().signOut()
+}
+
 export default firebase

@@ -1,15 +1,10 @@
 import { NextPage } from 'next'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import { signIn } from 'services/firebase'
 import Router from 'next/router'
 import { useEffect, useState, useMemo } from 'react'
 
 const Index: NextPage = () => {
   const [initialMount, setInitialMount] = useState(false)
-  const clickSignIn = () => {
-    sessionStorage.setItem('pending', '1')
-    firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider())
-  }
   useEffect(() => {
     if (sessionStorage.getItem('pending')) {
       sessionStorage.removeItem('pending')
@@ -25,7 +20,7 @@ const Index: NextPage = () => {
     return (
       <div>
         <h1>firebase-todo</h1>
-        <button onClick={clickSignIn}>
+        <button onClick={signIn}>
           Googleアカウントでログイン
         </button>
       </div>
