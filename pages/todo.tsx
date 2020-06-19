@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
-import { signOut } from 'services/firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import { useMemo } from 'react'
 import { useAuth } from 'hooks/useAuth'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,7 +17,7 @@ const Todo: NextPage = () => {
   const dispatch = useDispatch()
   const clickSignOut = async () => {
     try {
-      await signOut()
+      await firebase.auth().signOut()
       dispatch(doSignOut())
     } catch(e) {
       console.log(e)
