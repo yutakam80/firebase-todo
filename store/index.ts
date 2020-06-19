@@ -1,6 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import { userReducer } from 'store/user/reducer'
+import { todoReducer } from 'store/todo/reducer'
 
 const bindMiddleware = (middleware) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -12,6 +13,7 @@ const bindMiddleware = (middleware) => {
 
 const rootReducer = combineReducers({
   user: userReducer,
+  todo: todoReducer,
 })
 
 const reducer = (state, action) => {
