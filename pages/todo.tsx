@@ -1,27 +1,20 @@
 import { NextPage } from 'next'
-import firebase from 'firebase/app'
-import 'firebase/auth'
 import { useMemo } from 'react'
 import { useAuth } from 'hooks/useAuth'
-import { useDispatch, useSelector } from 'react-redux'
-import { doSignOut } from 'store/actions'
+import { useSelector } from 'react-redux'
 import { RootState } from 'store'
 import { TodoForm } from 'components/TodoForm'
 import { TodoList } from 'components/TodoList'
+import { useSignOut } from 'hooks/useSignOut'
 
 const Todo: NextPage = () => {
   useAuth()
+  const { signOut } = useSignOut()
   const { authed } = useSelector((state: RootState) => ({
     authed: state.user.authed,
   }))
-  const dispatch = useDispatch()
   const clickSignOut = async () => {
-    try {
-      await firebase.auth().signOut()
-      dispatch(doSignOut())
-    } catch(e) {
-      console.log(e)
-    }
+    signOut()
   }
   return useMemo(() => {
     if (!authed) {

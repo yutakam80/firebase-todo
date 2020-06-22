@@ -1,25 +1,14 @@
 import { NextPage } from 'next'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import Router from 'next/router'
-import { useEffect, useState, useMemo } from 'react'
+import { useMemo } from 'react'
+import { useSignIn } from 'hooks/useSignIn'
 
 const Index: NextPage = () => {
-  const [initialMount, setInitialMount] = useState(false)
+  const { initialized, signIn } = useSignIn()
   const clickSignIn = () => {
-    sessionStorage.setItem('pending', '1')
-    firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+    signIn()
   }
-  useEffect(() => {
-    if (sessionStorage.getItem('pending')) {
-      sessionStorage.removeItem('pending')
-      Router.push('/todo')
-    } else {
-      setInitialMount(true)
-    }
-  }, [])
   return useMemo(() => {
-    if (!initialMount) {
+    if (!initialized) {
       return null
     }
     return (
@@ -30,7 +19,7 @@ const Index: NextPage = () => {
         </button>
       </div>
     )
-  }, [initialMount])
+  }, [initialized])
 }
 
 export default Index
