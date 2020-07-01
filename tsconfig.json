@@ -6,6 +6,9 @@
       "dom.iterable",
       "esnext"
     ],
+    "types": [
+      "jest"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -18,7 +21,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": "./",
-    "typeRoots" : ["mode_modules/@types"]
   },
   "exclude": [
     "node_modules"
