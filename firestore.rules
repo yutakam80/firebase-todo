@@ -24,25 +24,25 @@ service cloud.firestore {
         && request.resource.data.updatedAt == request.time
       ;
       allow get: if isUserAuthenticated(userId);
-    }
 
-    match /todos/{todoId} {
-      allow create: if isUserAuthenticated(userId)
-        && (request.resource.data.title is string && request.resource.data.title.size() <= 100)
-        && (request.resource.data.isCompleted == false) && (!('completedAt' in request.resource.data) || request.resource.data.completedAt == null)
-        && request.resource.data.createdAt == request.time
-        && request.resource.data.updatedAt == request.time
-      ;
-      allow update: if isUserAuthenticated(userId)
-        && (request.resource.data.title is string && request.resource.data.title.size() <= 100)
-        && (
-          (resource.data.isCompleted == false && equest.resource.data.isCompleted == true && request.auth.data.completedAt == request.time)
-          || (resource.data.isCompleted == request.resource.data.isCompleted && resource.data.completedAt == request.resource.data.completedAt)
-          || (request.resource.data.isCompleted == false && request.resource.data.completedAt == null)
-        )
-        && (!('createdAt' in request.resource.data) || resource.data.createdAt == request.resource.data.createdAt)
-        && request.resource.data.updatedAt == request.time
-      ;
+      match /todos/{todoId} {
+        allow create: if isUserAuthenticated(userId)
+          && (request.resource.data.title is string && request.resource.data.title.size() <= 100)
+          && (request.resource.data.isCompleted == false) && (!('completedAt' in request.resource.data) || request.resource.data.completedAt == null)
+          && request.resource.data.createdAt == request.time
+          && request.resource.data.updatedAt == request.time
+        ;
+        allow update: if isUserAuthenticated(userId)
+          && (request.resource.data.title is string && request.resource.data.title.size() <= 100)
+          && (
+            (resource.data.isCompleted == false && request.resource.data.isCompleted == true && request.auth.data.completedAt == request.time)
+            || (resource.data.isCompleted == request.resource.data.isCompleted && resource.data.completedAt == request.resource.data.completedAt)
+            || (request.resource.data.isCompleted == false && request.resource.data.completedAt == null)
+          )
+          && (!('createdAt' in request.resource.data) || resource.data.createdAt == request.resource.data.createdAt)
+          && request.resource.data.updatedAt == request.time
+        ;
+      }
     }
   }
 }

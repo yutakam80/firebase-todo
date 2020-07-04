@@ -13,7 +13,7 @@ export const useAuth = () => {
         if (user) {
           dispatch(fetchAuthSuccess({
             displayName: user.displayName,
-            email: user.email
+            iconURL: user.photoURL,
           }))
           Router.push('/todo')
         } else {

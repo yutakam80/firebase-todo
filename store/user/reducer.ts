@@ -3,14 +3,14 @@ import { fetchAuthSuccess, doSignOut } from 'store/actions'
 
 type UserState = {
   displayName: string
-  email: string
+  iconURL: string
   fetched: boolean
   authed: boolean
 }
 
 const initialState: UserState = {
   displayName: '',
-  email: '',
+  iconURL: '',
   fetched: false,
   authed: false,
 }
@@ -18,9 +18,9 @@ const initialState: UserState = {
 export const userReducer = reducerWithInitialState(initialState)
 .case(fetchAuthSuccess, (_, payload) => ({
   displayName: payload.displayName,
-  email: payload.email,
+  iconURL: payload.iconURL,
   fetched: true,
-  authed: !!(payload.displayName && payload.email),
+  authed: !!(payload.displayName && payload.iconURL),
 }))
 .case(doSignOut, (_) => ({
   ...initialState,
