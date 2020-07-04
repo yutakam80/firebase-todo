@@ -8,20 +8,29 @@ import { fetchAuthSuccess } from 'store/actions'
 export const useAuth = () => {
   const dispatch = useDispatch()
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(
+    const unsubscribeAuth = firebase.auth().onAuthStateChanged(
       (user) => {
         if (user) {
-          dispatch(fetchAuthSuccess({
-            displayName: user.displayName,
-            iconURL: user.photoURL,
-          }))
-          Router.push('/todo')
+          const unsubscribeSnapshot = firebase.firestore()
+            .doc(`users/${firebase.auth().currentUser!.uid}`)
+            .onSnapshot(async (doc) => {
+              if (!doc.exists) {
+                return
+              }
+              await firebase.auth().currentUser!.reload()
+              dispatch(fetchAuthSuccess({
+                displayName: doc.data().name,
+                iconURL: doc.data().iconURL,
+              }))
+              Router.push('/todo')
+              unsubscribeSnapshot()
+            })
         } else {
           dispatch(fetchAuthSuccess({}))
           Router.push('/')
         }
       }
     )
-    return () => unsubscribe()
+    return () => unsubscribeAuth()
   }, [])
 }
