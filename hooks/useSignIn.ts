@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import Router from 'next/router'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import firebase from 'services/firebase'
 
 export const useSignIn = () => {
   const [initialized, setInitialized] = useState(false)

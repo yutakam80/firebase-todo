@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import firebase from 'services/firebase'
 import Router from 'next/router'
 import { fetchAuthSuccess } from 'store/actions'
 

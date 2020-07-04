@@ -1,6 +1,5 @@
 import { useCallback } from 'react'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import firebase from 'services/firebase'
 import { doSignOut } from 'store/actions'
 import { useDispatch } from 'react-redux'
 
