@@ -6,7 +6,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "deploy": "rm -rf .next out && next build && next export",
+    "export": "rm -rf .next out && next build && next export",
     "test": "firebase emulators:exec --only firestore 'jest'"
   },
   "dependencies": {
