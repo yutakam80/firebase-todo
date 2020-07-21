@@ -8,7 +8,7 @@ export const useAddTodo = () => {
   const handleAddTodo = useCallback(async () => {
     setLoading(true)
     try {
-      firebase.firestore().collection()
+      // firebase.firestore().collection()
     } catch(e) {
       setError(true)
       setLoading(false)
