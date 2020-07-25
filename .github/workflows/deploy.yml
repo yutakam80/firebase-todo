@@ -4,17 +4,14 @@ on:
     branches:
       - master
 jobs:
-  build:
-    name: Build
+  build-app:
+    name: Build App
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Install Dependencies
         run: npm install
-      - name: Install Dependencies for Functions
-        run: npm install
-        working-directory: ./functions
       - name: Build
         run: npm run export
       - name: Archive Production Artifact
@@ -22,9 +19,9 @@ jobs:
         with:
           name: out
           path: out
-  deploy:
-    name: Deploy
-    needs: build
+  deploy-app:
+    name: Deploy App
+    needs: build-app
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -38,5 +35,17 @@ jobs:
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  deploy-func:
+    name: Deploy Cloud Functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
